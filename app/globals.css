@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 :root {
   --paper: #f7f6f2;
   --paper-deep: #efede7;
@@ -24,6 +22,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
@@ -217,6 +216,7 @@ a {
 .hero-copy {
   position: relative;
   z-index: 2;
+  min-width: 0;
   width: min(66%, 960px);
   padding-right: clamp(2rem, 7vw, 8rem);
 }
@@ -1208,7 +1208,8 @@ a {
   }
 
   .site-header {
-    padding: 0.65rem 1.25rem 0;
+    padding: 0.65rem max(1rem, env(safe-area-inset-right)) 0
+      max(1rem, env(safe-area-inset-left));
   }
 
   .glass-nav-content {
@@ -1235,7 +1236,7 @@ a {
   .hero {
     display: block;
     min-height: auto;
-    padding: 4.5rem 1.25rem 0;
+    padding: clamp(4rem, 12vw, 5rem) 1.25rem 0;
     overflow: hidden;
   }
 
@@ -1246,7 +1247,14 @@ a {
   }
 
   .hero h1 {
-    font-size: clamp(3rem, 13.5vw, 5.8rem);
+    font-size: clamp(2.9rem, 12.8vw, 5.4rem);
+    line-height: 0.98;
+  }
+
+  .hero-description {
+    max-width: 38rem;
+    font-size: 1rem;
+    line-height: 1.7;
   }
 
   .hero-visual {
@@ -1271,10 +1279,11 @@ a {
   }
 
   .section {
-    padding: 6.5rem 1.25rem;
+    padding: 5.75rem 1.25rem;
   }
 
   .section-index {
+    top: 1.5rem;
     left: 1.25rem;
   }
 
@@ -1319,6 +1328,10 @@ a {
     line-height: 1.35;
   }
 
+  .comparison-row > span:first-child {
+    padding-right: 0.4rem;
+  }
+
   .payment-options {
     margin-top: 1rem;
   }
@@ -1328,7 +1341,7 @@ a {
   }
 
   .final-cta {
-    padding: 6.5rem 1.25rem 1.8rem;
+    padding: 5.75rem 1.25rem max(1.8rem, env(safe-area-inset-bottom));
   }
 
   .final-cta .eyebrow {
@@ -1342,6 +1355,76 @@ a {
 }
 
 @media (max-width: 560px) {
+  .site-header {
+    padding: 0.5rem max(0.75rem, env(safe-area-inset-right)) 0
+      max(0.75rem, env(safe-area-inset-left));
+  }
+
+  .glass-nav-shell::before {
+    width: 180%;
+  }
+
+  .glass-nav-content {
+    min-height: 50px;
+    padding: 0.25rem 0.28rem 0.25rem 0.85rem;
+  }
+
+  .wordmark {
+    gap: 0.55rem;
+    letter-spacing: 0.08em;
+  }
+
+  .header-cta {
+    width: 42px;
+    min-height: 42px;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+  }
+
+  .header-cta span:first-child {
+    display: none;
+  }
+
+  .hero {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.65rem, 12.5vw, 4.25rem);
+    overflow-wrap: break-word;
+  }
+
+  .hero-description {
+    margin-top: 1.75rem;
+    line-height: 1.65;
+  }
+
+  .hero-visual {
+    min-height: clamp(470px, 148vw, 650px);
+    margin-right: -1rem;
+    margin-left: -1rem;
+  }
+
+  .section {
+    padding: 5.5rem 1rem;
+  }
+
+  .section-index {
+    left: 1rem;
+  }
+
+  .context-intro h2,
+  .section-heading h2,
+  .payment-heading h2,
+  .process-intro h2,
+  .materials-heading h2 {
+    font-size: clamp(2.35rem, 10.8vw, 3.5rem);
+    line-height: 1.04;
+    overflow-wrap: break-word;
+  }
+
   .hero-actions,
   .final-actions {
     align-items: stretch;
@@ -1352,7 +1435,13 @@ a {
   .hero-actions .button,
   .hero-actions .magnetic-button,
   .final-actions .button {
+    min-width: 0;
     width: 100%;
+  }
+
+  .button,
+  .magnetic-button-surface {
+    min-height: 52px;
   }
 
   .button-text,
@@ -1374,13 +1463,43 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .solution-topline {
+    align-items: flex-start;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .solution-title-block,
+  .solution-description,
+  .included-block,
+  .solution-footer {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
   .solution-footer {
     align-items: stretch;
   }
 
   .solution-footer .button,
   .solution-footer .aura-button {
+    min-width: 0;
     max-width: none;
+  }
+
+  .comparison-header,
+  .comparison-row {
+    grid-template-columns: minmax(0, 1fr) 62px 62px;
+    column-gap: 0.25rem;
+  }
+
+  .comparison-header {
+    font-size: 0.53rem;
+    letter-spacing: 0.035em;
+  }
+
+  .comparison-row {
+    font-size: 0.72rem;
   }
 
   .payment-options {
@@ -1393,6 +1512,11 @@ a {
 
   .payment-option:first-child {
     border-right: 0;
+  }
+
+  .payment-option {
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
 
   .timeline li {
@@ -1420,6 +1544,47 @@ a {
   .final-meta {
     flex-direction: column;
     gap: 0.7rem;
+  }
+
+  .final-cta {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .final-cta h2 {
+    font-size: clamp(2.55rem, 11.8vw, 4rem);
+    line-height: 1;
+    overflow-wrap: break-word;
+  }
+
+  .final-options a {
+    min-height: 132px;
+    padding: 1.5rem 1.25rem;
+    border-radius: 20px;
+  }
+
+  .final-options strong {
+    font-size: clamp(1.75rem, 8.5vw, 2.5rem);
+  }
+}
+
+@media (max-width: 360px) {
+  .wordmark {
+    font-size: 0.6rem;
+  }
+
+  .hero h1 {
+    font-size: 2.55rem;
+  }
+
+  .comparison-header,
+  .comparison-row {
+    grid-template-columns: minmax(0, 1fr) 54px 54px;
+  }
+
+  .timeline li {
+    grid-template-columns: 40px 1fr;
+    gap: 0.75rem;
   }
 }
 
