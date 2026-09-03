@@ -30,3 +30,9 @@ npm test
 
 O comando de teste executa o build de produção e valida o HTML renderizado da
 proposta.
+
+## Deploy na Vercel
+
+Importe este repositório na Vercel usando a raiz do projeto. O arquivo
+`vercel.json` seleciona automaticamente a build Nitro preparada para a
+plataforma.
